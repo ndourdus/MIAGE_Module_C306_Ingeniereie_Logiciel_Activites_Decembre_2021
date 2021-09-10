@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 http://pmd.sourceforge.net/report_2_0_0.xsd"
+    version="6.13.0" timestamp="2021-09-07T04:47:43.150">
+<file name="D:\DOSSIER_MIAGE\2021_DECEMBRE\C306\Activités\Activité 1\Exercice02\src\main\java\TabAlgos.java">
+<violation beginline="72" endline="72" begincolumn="10" endcolumn="27" rule="UselessParentheses" ruleset="Code Style" package="activite.exercice02" class="TabAlgos" method="moyenne" externalInfoUrl="https://pmd.github.io/pmd-6.13.0/pmd_rules_java_codestyle.html#uselessparentheses" priority="4">
+Useless parentheses.
+</violation>
+</file>
+</pmd>
