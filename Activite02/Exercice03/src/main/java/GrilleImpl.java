@@ -7,7 +7,8 @@
 
 public class GrilleImpl implements Grille {
 
-  /**
+
+/**
    * Constante representant la dimenssion de la grille.
    */
   private final int dimension;
@@ -36,26 +37,26 @@ public class GrilleImpl implements Grille {
    * Accesseur de retour de la grille.
    * @return char [][]
    */
-  public char[][] getGrille() {
+  final char[][] getGrille() {
     return grille;
   }
 
   /**
    * mutateur d'affection d'une grille entiere.
-   * @param laGrille la grille a affecter.
+   * @param newGrille la grille a affecter.
    */
-  public void setGrille(final char[][] newGrille) {
+  final void setGrille(final char[][] newGrille) {
     System.arraycopy(newGrille, 0, this.grille, 0, this.getDimension());
   }
 
   @Override
-  int getDimension() {
+public final int getDimension() {
     return this.dimension;
   }
 
   @Override
-  void setValue(final int x, final int y, final char value)
-      throws IllegalArgumentException {
+  public final void setValue(final int x, final int y, final char value)
+      throws CaractereInterditException {
     try {
       this.possible(x, y, value);
       //Si la value n'est pas autorisee dans
@@ -63,26 +64,26 @@ public class GrilleImpl implements Grille {
       //contenues dans le tableau, on leve une
       //exception.
       if (!this.estAutorisee(x, y, value)) {
-        throw new IllegalArgumentException("la valeur est interdite au "
+        throw new CaractereInterditException("la valeur est interdite au "
           + "vues des valeurs deja contenues dans la grille.");
       }
       this.getGrille()[x][y] = value;
     } catch (Exception ex) {
-      throw new IllegalArgumentException(ex.toString());
+      throw new CaractereInterditException(ex.toString());
     }
   }
 
   @Override
-  char getValue(final int x, final int y)
-      throws IllegalArgumentException {
+public final char getValue(final int x, final int y)
+      throws HorsBornesException {
     if (estHorsBornes(x, y, this.getDimension())) {
-      throw new IllegalArgumentException("x et/ou y est(sont) hors bornes.");
+      throw new HorsBornesException("x et/ou y est(sont) hors bornes.");
     }
     return this.getGrille()[x][y];
   }
 
   @Override
-  public boolean complete() {
+  public final boolean complete() {
     for (char[] sousGrille : this.getGrille()) {
       for (char carac : sousGrille) {
         if (carac == EMPTY) {
@@ -94,14 +95,14 @@ public class GrilleImpl implements Grille {
   }
 
   @Override
-  public boolean possible(final int x, final int y, final char value)
-      throws IllegalArgumentException {
+  public final boolean possible(final int x, final int y, final char value)
+      throws HorsBornesException {
 
     // On verifie que x et y sont dans les bornes autorisees;
     // pour cela, x et y ne doivent pas etre inferieur a 0
     // et ne doivent pas depasser la taille max de la grille.
     if (estHorsBornes(x, y, this.getDimension())) {
-      throw new IllegalArgumentException("x et/ou y est(sont) hors bornes.");
+      throw new HorsBornesException("x et/ou y est(sont) hors bornes.");
     }
 
     //On cree un tableau qui recevra les valeurs
@@ -109,7 +110,7 @@ public class GrilleImpl implements Grille {
     char[] temp = new char[this.getDimension()];
 
     //Puis on recupere les valeurs possibles
-    System.arraycopy(possible, 0, temp, 0, this.getDimension());
+    System.arraycopy(POSSIBLE, 0, temp, 0, this.getDimension());
 
     //on verifie si value est un caractere autorise.
     boolean estPresent = false;
@@ -120,7 +121,7 @@ public class GrilleImpl implements Grille {
       }
     }
     if (!estPresent) {
-      throw new IllegalArgumentException("Cette valeur n'est pas autorisee "
+      throw new HorsBornesException("Cette valeur n'est pas autorisee "
         + "(parmis les valeurs possibles.)");
     }
     return estPresent;
